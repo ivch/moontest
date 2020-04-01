@@ -3,6 +3,8 @@
 ### Notes
 This is my first NodeJS app, so I intentionally skipped some important parts like tests or correct delivery scripts
 
+Also skipped the correct error handling and logging as it is out of the task's scope
+
 ## Build
 `docker-compose build` 
 

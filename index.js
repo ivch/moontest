@@ -15,7 +15,7 @@ app.use(express.json());
 app.post('/echoAtTime', (request, response) => {
     let res = messageHandler.handleMessage(request.body.message, request.body.time);
 
-    if (typeof res.err === 'undefined') {
+    if (typeof res.error === 'undefined') {
         response.sendStatus(200);
         return;
     }

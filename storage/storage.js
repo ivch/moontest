@@ -16,6 +16,7 @@ module.exports = class Storage extends StorageInterface {
         //skipped to save time
         this.db.zadd(this.setname, entry.time, entry.id);
         this.db.set(entry.id, JSON.stringify(entry));
+        return null;
     }
 
     get(callback) {

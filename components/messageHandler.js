@@ -15,16 +15,20 @@ module.exports = class MessageHandler extends MessageHandlerInterface {
         time = parseInt(time);
 
         if (typeof message === "undefined" || typeof time === "undefined") {
-            return {"error": "message and time are mandatory fields"};
+            return {error: "message and time are mandatory fields"};
         }
 
         if (time.toString().length < 7 || time.toString().length > 13) {
-            return {"error": "incorrect time"};
+            return {error: "incorrect time"};
         }
 
         let entry = {id: uuid.v4(), message: message, time: time};
 
-        this.db.put(entry);
+        let err = this.db.put(entry);
+        if (err != null) {
+            //log error
+            return {error: "failed to save message"}
+        }
 
         return {};
     }
