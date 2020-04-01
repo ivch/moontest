@@ -1,0 +1,11 @@
+{
+  "app": {
+    "port": "8080"
+  },
+  "redis": {
+    "host": "moon_redis",
+    "port": "6379",
+    "setname": "moonset",
+    "lockTtl": 1000
+  }
+}
