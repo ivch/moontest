@@ -3,17 +3,17 @@ const express = require('express');
 const app = express();
 const port = cfg.app.port || '3000';
 const redis = require("redis").createClient({host: cfg.redis.host, port: cfg.redis.port});
-const store = require('./storage/storage');
-const db = new store({redis: redis, setname: cfg.redis.setname});
-const handler = require('./components/messageHandler');
-const messageHandler = new handler(db);
-const w = require('./components/messageWorker');
-const worker = new w(db);
+const Storage = require('./storage/storage');
+const storage = new Storage({redis: redis, setname: cfg.redis.setname});
+const Handler = require('./components/messageHandler');
+const handler = new Handler(storage);
+const Worker = require('./components/messageWorker');
+const worker = new Worker(storage);
 
 app.use(express.json());
 
 app.post('/echoAtTime', (request, response) => {
-    let res = messageHandler.handleMessage(request.body.message, request.body.time);
+    let res = handler.handleMessage(request.body.message, request.body.time);
 
     if (typeof res.error === 'undefined') {
         response.sendStatus(200);
